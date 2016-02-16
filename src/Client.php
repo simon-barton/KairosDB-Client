@@ -49,7 +49,7 @@ class Client
         return $this->post('datapoints', array(
             'name' => $metricName,
             'tags' => $tags,
-            'value'=> $value,
+            'value' => $value,
             'timestamp' => $timestamp ? $timestamp : round(microtime(true) * 1000)
         ));
     }
@@ -78,17 +78,17 @@ class Client
     public function queryTags()
     {
         $data = array(
-            "start_absolute" => 1357023600000,
-            "end_relative"=> array(
-                "value"=> "5",
-                "unit"=> "days"
+            'start_absolute' => 1357023600000,
+            'end_relative' => array(
+                'value' => '5',
+                'unit' => 'days'
             ),
-            "metrics" => array(
+            'metrics' => array(
                 array(
-                    "tags" => array(
-                        "host" => "precise64"
+                    'tags' => array(
+                        'host' => 'precise64'
                     ),
-                    "name" => "kairosdb.protocol.http_request_count"
+                    'name' => 'kairosdb.protocol.http_request_count'
                 )
             )
         );
@@ -102,18 +102,18 @@ class Client
     public function deleteDataPoints()
     {
         $data = array(
-            "metrics" => array(
+            'metrics' => array(
                 array(
-                    "tags" => array(
-                        "host" => "precise64"
+                    'tags' => array(
+                        'host' => 'precise64'
                     ),
-                    "name" => "kairosdb.protocol.http_request_count"
+                    'name' => 'kairosdb.protocol.http_request_count'
                 )
             ),
-            "cache_time" => 0,
-            "start_relative" => array(
-                "value" => "1",
-                "unit" => "hours"
+            'cache_time' => 0,
+            'start_relative' => array(
+                'value' => '1',
+                'unit' => 'hours'
             )
         );
 
@@ -184,9 +184,7 @@ class Client
             array(
                 'Content-Type' => 'application/json'
             ),
-            array(
-                'body' => json_encode($data, true)
-            )
+            json_encode($data, true)
         )->send();
 
         return $response->json();

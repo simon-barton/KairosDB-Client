@@ -4,6 +4,7 @@ namespace KairosDB;
 
 /**
  * Class QueryBuilder
+ *
  * @package KairosDB
  */
 class QueryBuilder
@@ -121,6 +122,7 @@ class QueryBuilder
 
     /**
      * The amount of time in seconds to cache the output of the query.
+     *
      * @param int $seconds
      * @return $this
      */
@@ -152,8 +154,8 @@ class QueryBuilder
     {
         if (is_array($limits)) {
 
-            $this->query["{$type}_relative"]= array(
-                'unit'  => $limits['unit'],
+            $this->query["{$type}_relative"] = array(
+                'unit' => $limits['unit'],
                 'value' => $limits['value']
             );
 

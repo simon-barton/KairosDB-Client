@@ -40,8 +40,8 @@ class DataPointCollection
     public function toArray()
     {
         return array(
-            'name'=> $this->metricName,
-            'tags'=> $this->tags,
+            'name' => $this->metricName,
+            'tags' => $this->tags,
             'datapoints' => $this->points
         );
     }
