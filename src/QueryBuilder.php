@@ -8,10 +8,20 @@ namespace KairosDB;
  */
 class QueryBuilder
 {
-    private $query = [];
+    /**
+     * @var array
+     */
+    private $query = array();
 
-    private $currentMetric = [];
-    private $metrics = [];
+    /**
+     * @var array
+     */
+    private $currentMetric = array();
+
+    /**
+     * @var array
+     */
+    private $metrics = array();
 
     /**
      * @param string $metricName
@@ -21,7 +31,7 @@ class QueryBuilder
     {
         if ($this->currentMetric) {
             $this->metrics[] = $this->currentMetric;
-            $this->currentMetric = [];
+            $this->currentMetric = array();
         }
 
         $this->currentMetric['name'] = $metricName;
@@ -30,15 +40,15 @@ class QueryBuilder
     }
 
     /**
-     * @param array $tags
+     * @param string|int $value
      * @return $this
      */
     public function groupByValue($value)
     {
-        $this->currentMetric['group_by'] = [
+        $this->currentMetric['group_by'] = array(
             'name' => 'value',
-            'range_size' => $value,
-        ];
+            'range_size' => $value
+        );
 
         return $this;
     }
@@ -49,10 +59,10 @@ class QueryBuilder
      */
     public function groupByTags(array $tags)
     {
-        $this->currentMetric['group_by'] = [
+        $this->currentMetric['group_by'] = array(
             'name' => 'tag',
-            'tags' => $tags,
-        ];
+            'tags' => $tags
+        );
 
         return $this;
     }
@@ -99,7 +109,7 @@ class QueryBuilder
      * - absolute: in miliseconds
      * - relative: array ['value'=> 1, 'unit'=>'days']
      *
-     * @param mixed $start
+     * @param mixed $end
      * @return $this
      */
     public function end($end)
@@ -133,20 +143,21 @@ class QueryBuilder
 
 
     /**
-     * todo: throw exceptions if unit/value have not been specified
-     * @param $type
-     * @param $limits
+     * TODO: throw exceptions if unit/value have not been specified
+     *
+     * @param int|string $type
+     * @param int|array $limits
      */
     private function setTimeLimits($type, $limits)
     {
         if (is_array($limits)) {
 
-            $this->query["{$type}_relative"]= [
+            $this->query["{$type}_relative"]= array(
                 'unit'  => $limits['unit'],
                 'value' => $limits['value']
-            ];
+            );
 
-        } elseif(is_numeric($limits)) {
+        } else if(is_numeric($limits)) {
             $this->query["{$type}_absolute"] = $limits;
         }
     }

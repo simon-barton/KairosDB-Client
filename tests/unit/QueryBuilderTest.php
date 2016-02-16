@@ -4,16 +4,22 @@ namespace KairosDB\Test;
 
 use KairosDB\QueryBuilder;
 
+/**
+ * Class QueryBuilderTest
+ *
+ * @package KairosDB\Test
+ */
 class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var  QueryBuilder $queryBuilder */
+    /**
+     * @var QueryBuilder
+     */
     private $queryBuilder;
 
     public function setUp()
     {
         $this->queryBuilder = new QueryBuilder();
     }
-
 
     public function testAddMetricGroupingByValue()
     {
@@ -34,7 +40,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testAddMetricGroupingByTags()
     {
         $metricName = "network_in";
-        $tags = ["host" => 'precise64'];
+        $tags = array("host" => 'precise64');
         $query = $this->queryBuilder
             ->addMetric($metricName)
             ->groupByTags($tags)
@@ -60,7 +66,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testAddTagsToMetric()
     {
         $metricName = "network_in";
-        $tags = ['host' => 'precise64'];
+        $tags = array('host' => 'precise64');
         $query = $this->queryBuilder
             ->addMetric($metricName)
             ->tags($tags)
@@ -98,7 +104,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testStartFromRelative()
     {
-        $query = $this->queryBuilder->start(['value' => 1, 'unit' => 'days'])->build();
+        $query = $this->queryBuilder->start(array('value' => 1, 'unit' => 'days'))->build();
         $this->assertArrayHasKey('start_relative', $query);
     }
 
@@ -111,7 +117,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testEndRelative()
     {
-        $query = $this->queryBuilder->end(['value' => 1, 'unit' => 'days'])->build();
+        $query = $this->queryBuilder->end(array('value' => 1, 'unit' => 'days'))->build();
         $this->assertArrayHasKey('end_relative', $query);
     }
 

@@ -4,21 +4,28 @@ namespace KairosDB;
 
 /**
  * Class DataPointCollection
+ *
  * @package KairosDB
  */
 class DataPointCollection
 {
-    /** @var array $points */
-    private $points = [];
+    /**
+     * @var array
+     */
+    private $points = array();
 
-    /** @var array $tags */
-    private $tags = [];
+    /**
+     * @var array
+     */
+    private $tags = array();
 
-    /** @var  string $metricName */
+    /**
+     * @var string
+     */
     private $metricName;
 
     /**
-     * @param $metricName
+     * @param string $metricName
      * @param array $tags
      */
     public function __construct($metricName, array $tags)
@@ -27,23 +34,26 @@ class DataPointCollection
         $this->tags = $tags;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
-        return [
+        return array(
             'name'=> $this->metricName,
             'tags'=> $this->tags,
             'datapoints' => $this->points
-        ];
+        );
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      * @param null $timestamp
      */
     public function addPoint($value, $timestamp = null)
     {
         $timestamp = is_null($timestamp) ? round(microtime(true) * 1000) : $timestamp;
-        $this->points[] = [$timestamp, $value];
+        $this->points[] = array($timestamp, $value);
     }
 
     /**
